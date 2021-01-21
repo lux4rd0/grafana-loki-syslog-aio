@@ -1,0 +1,114 @@
+version: "3.8"
+
+networks:
+  loki:
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks:
+      - loki
+    ports:
+    - 3000:3000/tcp
+    restart: always
+    volumes:
+    - ./config/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:rw
+    - ./config/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:rw
+    - ./config/grafana/dashboards:/var/lib/grafana/dashboards:rw
+
+  loki:
+    command: -config.file=/etc/loki/loki-config.yml
+    image: grafana/loki:latest
+    container_name: loki
+    networks:
+      - loki
+    ports:
+    - 3100:3100/tcp
+    restart: always
+#    user: 1000:1000
+    volumes:
+    - ./config/loki-config-s3.yml:/etc/loki/loki-config.yml
+#    - ./config/loki-config-filesystem.xml:/etc/loki/loki-config.xml
+#    - ./data/loki:/opt/loki:rw
+    depends_on:
+      - minio
+
+  promtail:
+    command: -config.file=/etc/promtail/promtail-config.yml
+    container_name: promtail
+    image: grafana/promtail:latest
+    networks:
+      - loki
+    ports:
+    - 1514:1514/tcp
+    - 9080:9080/tcp
+    restart: always
+    volumes:
+    - ./config/promtail-config.yml:/etc/promtail/promtail-config.yml:rw
+
+  syslog-ng:
+    command: -edv
+    container_name: syslog-ng
+    image: balabit/syslog-ng
+    networks:
+      - loki
+    ports:
+    - 514:514/udp
+    - 601:601/tcp
+    restart: always
+    volumes:
+    - ./config/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:rw
+    depends_on:
+      - promtail
+
+  prometheus:
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --storage.tsdb.path=/prometheus
+    - --web.enable-admin-api
+    - --web.enable-lifecycle
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+    - 9090:9090
+    restart: always
+    volumes:
+    - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+#    - ./data/prometheus:/prometheus:rw
+#    user: 1000:1000
+    networks:
+      - loki
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+      MINIO_ACCESS_KEY: minio123
+      MINIO_SECRET_KEY: minio456
+    entrypoint: sh
+    command: -c 'mkdir -p /data/loki && /usr/bin/minio server /data'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: always
+    networks:
+      - loki
+    container_name: minio
+
+  node-exporter:
+    command: --path.rootfs=/host
+    container_name: node-exporter
+    image: prom/node-exporter
+    pid: host
+    ports:
+    - 9100:9100
+    restart: always
+    volumes:
+    - /:/host:ro,rslave
+    networks:
+      - loki
