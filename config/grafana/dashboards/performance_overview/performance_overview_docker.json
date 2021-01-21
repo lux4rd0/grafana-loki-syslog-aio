@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 10566,
   "graphTooltip": 1,
-  "iteration": 1611182001736,
+  "iteration": 1611195337154,
   "links": [
     {
       "asDropdown": true,
@@ -199,15 +199,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 0.75
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 0.9
               }
             ]
@@ -277,15 +277,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 70
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 90
               }
             ]
@@ -355,15 +355,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 400000000
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)"
               }
             ]
           },
@@ -414,7 +411,6 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
           "mappings": [
             {
               "id": 0,
@@ -429,20 +425,20 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0.8
+                "color": "orange",
+                "value": 3
               },
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0.9
+                "color": "red",
+                "value": 8
               }
             ]
           },
-          "unit": "percent"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -457,9 +453,6 @@
       "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -468,32 +461,24 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "7.3.7",
       "targets": [
         {
-          "expr": "node_load1{instance=~\"$node_prom\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$node_prom\"}))",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 1800
-        },
-        {
-          "expr": "sum(node_load1{instance=~\"$node_prom\"}) by (instance) / count(node_cpu_seconds_total{mode=\"system\",instance=~\"$node_prom\"}) by (instance) * 100",
+          "expr": "node_load1{instance=~\"$node_prom\"}",
           "format": "time_series",
           "hide": false,
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "Load1",
-          "refId": "B"
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
         }
       ],
       "title": "Load1",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "aliasColors": {
@@ -639,6 +624,8 @@
       "legend": {
         "avg": false,
         "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": false,
         "min": false,
         "show": false,
@@ -663,63 +650,40 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_system_seconds_total[1m]))",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "a",
-          "refId": "B",
-          "step": 120
-        },
-        {
-          "expr": "sum(rate(container_cpu_system_seconds_total{name=~\".+\"}[1m]))",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "nur container",
-          "refId": "F",
-          "step": 10
-        },
-        {
-          "expr": "sum(rate(container_cpu_system_seconds_total{id=\"/\"}[1m]))",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "nur docker host",
-          "metric": "",
-          "refId": "A",
-          "step": 20
-        },
-        {
-          "expr": "sum(rate(process_cpu_seconds_total[$interval])) * 100",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "host",
-          "metric": "",
-          "refId": "C",
-          "step": 600
-        },
-        {
-          "expr": "sum(rate(container_cpu_system_seconds_total{name=~\".+\"}[1m])) + sum(rate(container_cpu_system_seconds_total{id=\"/\"}[1m])) + sum(rate(process_cpu_seconds_total[1m]))",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "D",
-          "step": 120
-        },
-        {
-          "expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{instance=~\"$node_prom\",mode=\"idle\"}[5m])) * 100)",
+          "expr": "avg(irate(node_cpu_seconds_total{instance=~\"$node_prom\",mode=\"system\"}[30m])) by (instance)",
           "format": "time_series",
           "hide": false,
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "E"
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}_System",
+          "refId": "D"
+        },
+        {
+          "expr": "avg(irate(node_cpu_seconds_total{instance=~\"$node_prom\",mode=\"user\"}[30m])) by (instance)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}_User",
+          "refId": "C"
+        },
+        {
+          "expr": "avg(irate(node_cpu_seconds_total{instance=~\"$node_prom\",mode=\"iowait\"}[30m])) by (instance)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}_Iowait",
+          "refId": "A"
+        },
+        {
+          "expr": "1 - avg(irate(node_cpu_seconds_total{instance=~\"$node_prom\",mode=\"idle\"}[30m])) by (instance)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}_Total",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -730,8 +694,8 @@
       "tooltip": {
         "msResolution": true,
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -744,7 +708,8 @@
       "yaxes": [
         {
           "$$hashKey": "object:1347",
-          "format": "percent",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -818,23 +783,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_load1{instance=~\"$node_prom\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$node_prom\"}))",
+          "expr": "node_load1{instance=~\"$node_prom\"}",
           "format": "time_series",
           "hide": false,
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A",
           "step": 600
-        },
-        {
-          "expr": "sum(node_load1{instance=~\"$node_prom\"}) by (instance) / count(node_cpu_seconds_total{mode=\"system\",instance=~\"$node_prom\"}) by (instance) * 100",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -859,7 +815,7 @@
       "yaxes": [
         {
           "$$hashKey": "object:1428",
-          "format": "percentunit",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2518,5 +2474,5 @@
   "timezone": "browser",
   "title": "Performance Overview - Docker",
   "uid": "Ss3q6hSZk",
-  "version": 13
+  "version": 1
 }
