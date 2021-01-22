@@ -1,5 +1,6 @@
 
 
+
 ## grafana-loki-syslog-aio
 
 <img src="./loki_syslog_aio.png">
@@ -30,13 +31,8 @@ There is also a simple Syslog generator based on Vicente Zepeda Mas's [random-lo
 
 ## Prerequisites
 
-- Docker - https://docs.docker.com/install
-- Docker Compose - https://docs.docker.com/compose/install
-
-The system that you deploy this to will need access to the Internet to:
-
-- Download the "grafana-piechart-panel" panel plugin on startup
-- Build the Generator (optional) docker container (built from centos:7 with yum updates and installation of the Netcat package)
+- [Docker](https://docs.docker.com/install)
+- [Docker Compose](https://docs.docker.com/compose/install)
 
 ## Using
 
@@ -80,7 +76,7 @@ A few other docker-compose files are also available:
 
     docker-compose -f ./docker-compose-filesystem.yml up -d
 
-The Syslog Generator configuration with do a local docker build from the configurations location in ./generator
+The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator
 
 ## Configuration Review:
 
