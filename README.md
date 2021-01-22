@@ -82,6 +82,8 @@ A few other docker-compose files are also available:
 
 The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator. It'll provide some named hosts and random INFO, WARN, DEBIG, ERROR logs sent over to syslog-ng/Loki.
 
+<img src="./loki_syslog_aio_overview_generator_sized.png">
+
 
 
 ## Configuration Review:
