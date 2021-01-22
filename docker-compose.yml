@@ -23,7 +23,6 @@ services:
       GF_AUTH_BASIC_ENABLED: "false"
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/no_folder/loki_syslog_aio_overview.json
-      GF_INSTALL_PLUGINS: grafana-piechart-panel
     image: grafana/grafana:latest
     networks:
       loki: null
