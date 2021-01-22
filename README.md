@@ -118,7 +118,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Contact
 
-Dave Schmid - @lux4rd0 - dave@pulpfree.org
+Dave Schmid - [@lux4rd0](https://twitter.com/lux4rd0) - dave@pulpfree.org
 
 Project Link: https://github.com/lux4rd0/grafana-loki-syslog-aio
 
