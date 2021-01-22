@@ -31,6 +31,11 @@ You'll also see a simple Syslog generator based on Vicente Zepeda Mas's [random-
 - Docker - https://docs.docker.com/install
 - Docker Compose - https://docs.docker.com/compose/install
 
+The system that you deploy this to will need access to the Internet to:
+
+- Download the "grafana-piechart-panel" panel plugin on startup
+- Build the Generator (optional) docker container (built from centos:7 with yum updates and installation of the Netcat package)
+
 ## Getting Started
 
 This was built and tested on Linux Centos 7. To get started, download the code from this repository and extract it into an empty directory.
