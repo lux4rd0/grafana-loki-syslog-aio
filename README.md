@@ -68,7 +68,7 @@ MinIO configruations also default the Access Key and Secret Key at startup. If y
      aws:
       s3: s3://minio123:minio456@minio.:9000/loki
 
-**Disabling the syslog generator**
+**Disabling The Syslog Generator**
 
 The default deployment starts a syslog generator so that you can see the dashboards in use straight away after startup. If you are using your own devices, you can comment out the *generator* stanza in the docker-compose.yml file. Look for and delete:
 
