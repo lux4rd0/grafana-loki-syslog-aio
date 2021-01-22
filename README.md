@@ -1,6 +1,8 @@
 ## grafana-loki-syslog-aio
 
-Grafana Loki All-In-One Example Deployable with syslog-ng
+https://github.com/lux4rd0/grafana-loki-syslog-aio/blob/main/loki_syslog_aio.png?raw=true
+
+<img src="./loki_syslog_aio.png">
 
 ## About The Project
 
