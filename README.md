@@ -38,8 +38,12 @@ The system that you deploy this to will need access to the Internet to:
 
 ## Getting Started
 
-This was built and tested on Linux Centos 7. To get started, download the code from this repository and extract it into an empty directory.
+This was built and tested on Linux Centos 7. To get started, download the code from this repository and extract it into an empty directory. For example:
 
+    wget https://github.com/lux4rd0/grafana-loki-syslog-aio/archive/main.zip
+    unzip main.zip
+    cd grafana-loki-syslog-aio-main
+    
 From that directory, run the command:
 
     docker-compose up -d
