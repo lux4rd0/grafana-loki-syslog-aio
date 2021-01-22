@@ -41,12 +41,32 @@ From that directory, run the command:
 
 This will start to download all of the needed application containers and start them up. It will also perform a local docker build of the generator.
 
+Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Syslog Overview" Dashboard is defaulted without having to login.
+
+Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user only has a viewer role. This can be changed to an Admin role by changing the Grafana environmental variable in the docker-compose.yml file to:
+
+    GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+
 ## Options:
 
-I defaulted my configruation of having Loki use S3 storage with MinIO. If you want to use the filesystem instead, use the config/loki-config-filesystem.yml conifguration in the docker-compose.yml file. And example would be:
+The default Loki storage configruation uses S3 storage with MinIO. If you want to use the filesystem instead, use the config/loki-config-filesystem.yml conifguration in the docker-compose.yml file. An example would be:
 
     volumes:
     - ./config/loki-config-filesystem.ym:/etc/loki/loki-config.yml:ro
+
+**Changing MinIO Keys**
+
+MinIO configruations also default the Access Key and Secret Key at startup. If you want to change them, you'll need to update two files:
+
+./docker-compose.yml
+
+      MINIO_ACCESS_KEY: minio123
+      MINIO_SECRET_KEY: minio456
+      
+./config/loki-config-s3.yml
+
+     aws:
+      s3: s3://minio123:minio456@minio.:9000/loki
 
 **Disabling the syslog generator**
 
