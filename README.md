@@ -90,6 +90,12 @@ The default deployment starts a syslog generator so that you can see the dashboa
         networks:
           loki: null
 
+**Disabling Monitoring Containers**
+
+Having the Prometheus, Node-Exporter, and cAdvisor containers are also not required but do provide data to view a simplified single stack of monitored metrics for each of the solutions. Because there is some CPU and Memory consumption having them run, you can disable them without impacting the Syslog collection. A greatly simplified docker-compose-basic.yml file is also included. To use, run the following command:
+
+       docker-compose -f ./docker-compose-basic.yml up -d
+
 ## Roadmap
 
 See the open issues for a list of proposed features (and known issues).
