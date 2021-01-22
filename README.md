@@ -54,7 +54,7 @@ This will start to download all of the needed application containers and start t
 
 **Grafana Dashboards**
 
-Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Syslog Overview" dashboard is defaulted without having to login.
+Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Loki Syslog AIO - Overview" dashboard is defaulted without having to login.
 
 Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:
 
