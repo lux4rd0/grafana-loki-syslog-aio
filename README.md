@@ -1,15 +1,12 @@
-
-
-
 ## grafana-loki-syslog-aio
 
-<img src="./loki_syslog_aio.png">
+<center><img src="./loki_syslog_aio.png"></center>
 
 ## About The Project
 
 This Loki All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs.
 
-<img src="./loki_syslog_aio_overview_sized.png">
+<center><img src="./loki_syslog_aio_overview_sized.png"></center>
 
 Essentially:
 
@@ -82,9 +79,7 @@ A few other docker-compose files are also available:
 
 The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator. It'll provide some named hosts and random INFO, WARN, DEBIG, ERROR logs sent over to syslog-ng/Loki.
 
-<img src="./loki_syslog_aio_overview_generator_sized.png">
-
-
+<center><img src="./loki_syslog_aio_overview_generator_sized.png"></center>
 
 ## Configuration Review:
 
