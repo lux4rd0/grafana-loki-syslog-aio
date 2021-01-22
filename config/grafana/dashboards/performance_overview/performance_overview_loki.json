@@ -3721,7 +3721,9 @@
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
-    "loki"
+    "loki",
+    "prometheus",
+    "performance_overview"
   ],
   "templating": {
     "list": []
