@@ -56,12 +56,16 @@ Note: this docker-compose stack is designed to be as easy as possible to deploy 
 
     GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
 
+(Please see Disabling Monitoring Containers for another option for running a minimal example instance.)
+
 ## Options:
 
 The default Loki storage configruation uses S3 storage with MinIO. If you want to use the filesystem instead, use the config/loki-config-filesystem.yml conifguration in the docker-compose.yml file. An example would be:
 
     volumes:
     - ./config/loki-config-filesystem.ym:/etc/loki/loki-config.yml:ro
+
+(Please see Disabling Monitoring Containers for another option for running a minimal example instance.)
 
 **Changing MinIO Keys**
 
@@ -95,6 +99,8 @@ The default deployment starts a syslog generator so that you can see the dashboa
 Having the Prometheus, Node-Exporter, and cAdvisor containers are also not required but do provide data to view a simplified single stack of monitored metrics for each of the solutions. Because there is some CPU and Memory consumption having them run, you can disable them without impacting the Syslog collection. A greatly simplified docker-compose-basic.yml file is also included. To use, run the following command:
 
        docker-compose -f ./docker-compose-basic.yml up -d
+
+This configuration also uses the Loki filesystem driver and removes the MinIO dependency.
 
 ## Roadmap
 
