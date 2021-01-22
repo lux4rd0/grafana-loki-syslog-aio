@@ -1,3 +1,4 @@
+
 ## grafana-loki-syslog-aio
 
 <img src="./loki_syslog_aio.png">
@@ -13,18 +14,18 @@ This Loki All-In-One example is geared to help you get up and running quickly wi
 
 The project is built around a pre-configured Docker stack of the following:
 
- - Grafana
- - Grafana Loki (configured for MinIO)
- - Grafana Promtail
- - syslog-ng
+ - [Grafana](https://grafana.com/oss/grafana/)
+ - [Grafana Loki](https://grafana.com/oss/loki/) (configured for [MinIO](https://min.io/))
+ - [Grafana Promtail](https://grafana.com/docs/loki/latest/clients/promtail/)
+ - [syslog-ng](https://www.syslog-ng.com/)
 
-I've extended the stack to include pre-conifgured monitoring with:
+The stack has been extended to include pre-configured monitoring with:
 
-- Prometheeus
-- Node-Exporter
-- cAdvisor
+- [Prometheus](https://grafana.com/oss/prometheus/)
+- [Node-Exporter](https://github.com/prometheus/node_exporter)
+- [cAdvisor](https://github.com/google/cadvisor)
 
-You'll also see a simple Syslog generator based on Vicente Zepeda Mas's [random-logger](https://github.com/chentex/random-logger) project.
+There is also a simple Syslog generator based on Vicente Zepeda Mas's [random-logger](https://github.com/chentex/random-logger) project.
 
 ## Prerequisites
 
@@ -48,9 +49,9 @@ From that directory, run the command:
 
     docker-compose up -d
 
-This will start to download all of the needed application containers and start them up. It will also perform a local docker build of the generator.
+This will download all of the needed application containers and start them up. It will also perform a local docker build of the syslog generator.
 
-Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Syslog Overview" Dashboard is defaulted without having to login.
+Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Syslog Overview" dashboard is defaulted without having to login.
 
 Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user only has a viewer role. This can be changed to an Admin role by changing the Grafana environmental variable in the docker-compose.yml file to:
 
