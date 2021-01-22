@@ -129,3 +129,4 @@ Project Link: https://github.com/lux4rd0/grafana-loki-syslog-aio
 - Grafana - https://grafana.com/oss/grafana/
 - syslog-ng - https://www.syslog-ng.com/
 - Random Logger - https://github.com/chentex/random-logger
+- Grafana Dashboard Community (Performance Overviews) - https://grafana.com/grafana/dashboards
