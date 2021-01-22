@@ -1,4 +1,5 @@
 
+
 ## grafana-loki-syslog-aio
 
 <img src="./loki_syslog_aio.png">
@@ -37,40 +38,60 @@ The system that you deploy this to will need access to the Internet to:
 - Download the "grafana-piechart-panel" panel plugin on startup
 - Build the Generator (optional) docker container (built from centos:7 with yum updates and installation of the Netcat package)
 
-## Getting Started
+## Using
 
-This was built and tested on Linux Centos 7. To get started, download the code from this repository and extract it into an empty directory. For example:
+This was built and tested on Linux CentOS 7. To get started, download the code from this repository and extract it into an empty directory. For example:
 
     wget https://github.com/lux4rd0/grafana-loki-syslog-aio/archive/main.zip
     unzip main.zip
     cd grafana-loki-syslog-aio-main
     
-From that directory, run the command:
+From that directory, run the docker-compose command:
 
-    docker-compose up -d
+**Full Example Stack:** Grafana, Loki with s3/MinIO, Promtail, syslog-ng, Prometheus, cAdvisor, node-exporter
 
-This will download all of the needed application containers and start them up. It will also perform a local docker build of the syslog generator.
+    docker-compose -f ./docker-compose.yml up -d
+
+This will start to download all of the needed application containers and start them up. 
+
+*(Optional docker-compose configurations are listed under **Options** below)*
+
+**Grafana Dashboards**
 
 Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Syslog Overview" dashboard is defaulted without having to login.
 
 Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:
 
     GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    
+## Stack Options:
 
-(Please see Disabling Monitoring Containers for another option for running a minimal example instance.)
+A few other docker-compose files are also available:
 
-## Options:
+**Full Example Stack with Syslog Generator:** Grafana, Loki with s3/MinIO, Promtail, syslog-ng, Prometheus, cAdvisor, node-exporter
 
-The default Loki storage configruation uses S3 storage with MinIO. If you want to use the filesystem instead, use the config/loki-config-filesystem.yml conifguration in the docker-compose.yml file. An example would be:
+    docker-compose -f ./docker-compose-with-generator.yml up -d
+
+**Example Stack without monitoring or Syslog generator**: Grafana, Loki with s3/MinIO, Promtail, syslog-ng
+
+    docker-compose -f ./docker-compose-without-monitoring.yml up -d
+
+**Example Stack without MinIO, monitoring, or Syslog generator:** Grafana, Loki with filesystem, Promtail, syslog-ng
+
+    docker-compose -f ./docker-compose-filesystem.yml up -d
+
+The Syslog Generator configuration with do a local docker build from the configurations location in ./generator
+
+## Configuration Review:
+
+The default Loki storage configuration docker-compose.yml uses S3 storage with MinIO. If you want to use the filesystem instead, either use the different docker-compose configurations listed above or change the configuration directly. An example would be:
 
     volumes:
     - ./config/loki-config-filesystem.ym:/etc/loki/loki-config.yml:ro
 
-(Please see Disabling Monitoring Containers for another option for running a minimal example instance.)
-
 **Changing MinIO Keys**
 
-MinIO configruations also default the Access Key and Secret Key at startup. If you want to change them, you'll need to update two files:
+The MinIO configurations default the Access Key and Secret Key at startup. If you want to change them, you'll need to update two files:
 
 ./docker-compose.yml
 
@@ -81,27 +102,6 @@ MinIO configruations also default the Access Key and Secret Key at startup. If y
 
      aws:
       s3: s3://minio123:minio456@minio.:9000/loki
-
-**Disabling The Syslog Generator**
-
-The default deployment starts a syslog generator so that you can see the dashboards in use straight away after startup. If you are using your own devices, you can comment out the *generator* stanza in the docker-compose.yml file. Look for and delete:
-
-      generator:
-        build:
-          context: ./generator
-        container_name: generator
-        depends_on:
-        - syslog-ng
-        networks:
-          loki: null
-
-**Disabling Monitoring Containers**
-
-Having the Prometheus, Node-Exporter, and cAdvisor containers are also not required but do provide data to view a simplified single stack of monitored metrics for each of the solutions. Because there is some CPU and Memory consumption having them run, you can disable them without impacting the Syslog collection. A greatly simplified docker-compose-basic.yml file is also included. To use, run the following command:
-
-       docker-compose -f ./docker-compose-basic.yml up -d
-
-This configuration also uses the Loki filesystem driver and removes the MinIO dependency.
 
 ## Roadmap
 
