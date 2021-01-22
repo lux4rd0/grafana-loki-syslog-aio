@@ -28,8 +28,8 @@ You'll also see a simple Syslog generator based on Vicente Zepeda Mas's [random-
 
 ## Prerequisites
 
-Docker - https://docs.docker.com/install
-Docker Compose - https://docs.docker.com/compose/install
+- Docker - https://docs.docker.com/install
+- Docker Compose - https://docs.docker.com/compose/install
 
 ## Getting Started
 
@@ -82,7 +82,6 @@ Dave Schmid - @lux4rd0 - dave@pulpfree.org
 Project Link: https://github.com/lux4rd0/grafana-loki-syslog-aio
 
 ## Acknowledgements
-
 
 - Grafana Labs - https://grafana.com/
 - Grafana Loki - https://grafana.com/oss/loki/
