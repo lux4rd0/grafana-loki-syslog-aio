@@ -1,11 +1,34 @@
 networks:
   loki: {}
 services:
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/google-containers/cadvisor:latest
+    networks:
+      loki: null
+    ports:
+    - published: 8080
+      target: 8080
+    restart: always
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker:/var/lib/docker:ro
+  generator:
+    build:
+      context: ./generator
+    container_name: generator
+    depends_on:
+    - syslog-ng
+#    image: docker01.tylephony.com:5000/lux4rd0/syslog-generator:latest
+    networks:
+      loki: null
   grafana:
     container_name: grafana
-    image: grafana/grafana:latest
     environment:
       GF_INSTALL_PLUGINS: grafana-piechart-panel
+    image: grafana/grafana:latest
     networks:
       loki: null
     ports:
@@ -119,26 +142,4 @@ services:
     restart: always
     volumes:
     - ./config/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro
-  cadvisor:
-    networks:
-      loki: null
-    container_name: cadvisor
-    image: gcr.io/google-containers/cadvisor:latest
-    ports:
-    - published: 8080
-      target: 8080
-    volumes:
-    - /:/rootfs:ro
-    - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker:/var/lib/docker:ro
-    restart: always
-  generator:
-    build: ./generator
-#    image: docker01.tylephony.com:5000/lux4rd0/syslog-generator:latest
-    networks:
-      loki: null
-    container_name: generator
-    depends_on:
-    - syslog-ng
 version: '3.8'
