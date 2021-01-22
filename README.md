@@ -68,7 +68,7 @@ Note: this docker-compose stack is designed to be as easy as possible to deploy 
 
 A few other docker-compose files are also available:
 
-**Full Example Stack with Syslog Generator:** Grafana, Loki with s3/MinIO, Promtail, syslog-ng, Prometheus, cAdvisor, node-exporter
+**Full Example Stack with Syslog Generator:** Grafana, Loki with s3/MinIO, Promtail, syslog-ng, Prometheus, cAdvisor, node-exporter, Syslog Generator
 
     docker-compose -f ./docker-compose-with-generator.yml up -d
 
@@ -80,7 +80,9 @@ A few other docker-compose files are also available:
 
     docker-compose -f ./docker-compose-filesystem.yml up -d
 
-The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator
+The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator. It'll provide some named hosts and random INFO, WARN, DEBIG, ERROR logs sent over to syslog-ng/Loki.
+
+
 
 ## Configuration Review:
 
