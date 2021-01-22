@@ -28,7 +28,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1611275013099,
+  "iteration": 1611299888103,
   "links": [
     {
       "asDropdown": true,
@@ -69,7 +69,7 @@
       "fillGradient": 6,
       "gridPos": {
         "h": 9,
-        "w": 19,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -156,95 +156,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "aliasColors": {
-        "Debug": "#B877D9",
-        "Error": "#F2495C",
-        "Info": "#73BF69",
-        "Other": "#FADE2A",
-        "Warn": "#FF9830"
-      },
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Others",
-        "threshold": 0
-      },
-      "datasource": "Loki",
-      "description": "Counts of log lines containing status listed.",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "fontSize": "150%",
-      "format": "short",
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 19,
-        "y": 0
-      },
-      "id": 6,
-      "interval": "$smooth",
-      "legend": {
-        "percentage": true,
-        "percentageDecimals": 1,
-        "show": true,
-        "values": false
-      },
-      "legendType": "On graph",
-      "links": [],
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.3.7",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "expr": "sum(count_over_time({job=\"syslog\"}  |~\"error\" [$__interval]))",
-          "legendFormat": "Error",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(count_over_time({job=\"syslog\"}  |~\"info\" [$__interval]))",
-          "legendFormat": "Info",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(count_over_time({job=\"syslog\"}  |~\"warn\" [$__interval]))",
-          "legendFormat": "Warn",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(count_over_time({job=\"syslog\"}  |~\"debug\" [$__interval]))",
-          "legendFormat": "Debug",
-          "refId": "D"
-        },
-        {
-          "expr": "sum(count_over_time({job=\"syslog\"}  !~\"debug\" !~\"warn\" !~\"info\" !~\"error\" [$__interval]))",
-          "legendFormat": "Other",
-          "refId": "E"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Info, Warn, Error, Debug (Unfiltered)",
-      "transformations": [],
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
     },
     {
       "datasource": "Loki",
@@ -533,7 +444,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Syslog Overview",
+  "title": "Loki Syslog AIO - Overview",
   "uid": "s9Xm1zBGk",
-  "version": 6
+  "version": 1
 }
