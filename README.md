@@ -7,7 +7,11 @@
 
 ## About The Project
 
-This Loki All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs. Essentially:
+This Loki All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs.
+
+<img src="./loki_syslog_aio_overview_sized.png">
+
+Essentially:
 
 > RFC3164 Network/Compute Devices -> syslog-ng (UDP port 514) ->
 > Promtail (port 1514) -> Loki (port 3100) <- Grafana (port 3000)
