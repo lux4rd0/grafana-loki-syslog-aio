@@ -1,12 +1,15 @@
+
 ## grafana-loki-syslog-aio
 
 <center><img src="./loki_syslog_aio.png"></center>
 
 ## About The Project
 
-This Loki Syslog All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs. I wrote an [introductory blog post](https://labs.lux4rd0.com/2021/01/oldskool-syslog-meets-newskool-loki/) about how this AIO project came about as well (pesky intermitent network issues!!)
+This Loki Syslog All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs. I wrote an [introductory blog post](https://labs.lux4rd0.com/2021/01/oldskool-syslog-meets-newskool-loki/) about how this AIO project came about as well (pesky intermittent network issues!!) 
 
 <center><img src="./loki_syslog_aio_overview_sized.png"></center>
+
+*Note that this All In One is geared towards getting network traffic from legacy syslog (RFC3164 UDP port 514) into Loki via [syslog-ng](https://www.syslog-ng.com/) and [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/).*
 
 Essentially:
 
@@ -101,6 +104,60 @@ The MinIO configurations default the Access Key and Secret Key at startup. If yo
 
      aws:
       s3: s3://minio123:minio456@minio.:9000/loki
+
+## Changed Default Configurations In syslog-ng and Promtail
+
+In order to set this example All In One project up, these configurations were added to the docker-compose.yml. If you already have syslog-ng running on your deployment server - just make similar changes below and comment out the docker container stanza.
+
+#### SYSLOG-NG CONFIGURATION (docker container listens on port 514)
+
+**# syslog-ng.conf**
+
+    source s_local {
+        internal();
+    };
+    
+    source s_network {
+        default-network-drivers(
+        );
+    };
+    
+    destination d_loki {
+        syslog("promtail" transport("tcp") port("1514"));
+    };
+    
+    log {
+            source(s_local);
+            source(s_network);
+            destination(d_loki);
+    };
+
+#### PROMTAIL CONFIGURATION (docker container listens on port 1514)
+
+ **# promtail-config.yml**
+
+    server:
+      http_listen_port: 9080
+      grpc_listen_port: 0
+    
+    positions:
+      filename: /tmp/positions.yaml
+    
+    clients:
+      - url: http://loki:3100/loki/api/v1/push
+    
+    scrape_configs:
+    
+    - job_name: syslog
+      syslog:
+        listen_address: 0.0.0.0:1514
+        idle_timeout: 60s
+        label_structured_data: yes
+        labels:
+          job: "syslog"
+      relabel_configs:
+        - source_labels: ['__syslog_message_hostname']
+          target_label: 'host'
 
 ## Roadmap
 
