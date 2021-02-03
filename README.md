@@ -60,10 +60,20 @@ This will start to download all of the needed application containers and start t
 
 Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Loki Syslog AIO - Overview" dashboard is defaulted without having to login.
 
-Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:
+*Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:*
 
     GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
     
+**Getting Started With Loki**
+
+Here are some additional resources you might find helpful if you're just getting started with Loki:
+
+- [Getting started with Grafana and Loki in under 4
+   minutes](https://grafana.com/go/webinar/loki-getting-started/)
+- [An (only slightly technical) introduction to Loki](https://grafana.com/blog/2020/05/12/an-only-slightly-technical-introduction-to-loki-the-prometheus-inspired-open-source-logging-system/)
+- [Video tutorial: Effective troubleshooting queries with Grafana
+   Loki](https://grafana.com/blog/2021/01/07/video-tutorial-effective-troubleshooting-queries-with-grafana-loki/)
+
 ## Stack Options:
 
 A few other docker-compose files are also available:
