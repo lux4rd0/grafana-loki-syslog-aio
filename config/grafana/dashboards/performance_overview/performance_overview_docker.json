@@ -902,7 +902,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes{fstype=\"xfs\", instance=~\"$node_prom\"} - node_filesystem_free_bytes{fstype=\"xfs\",instance=~\"$node_prom\"}",
+          "expr": "node_filesystem_size_bytes{fstype=\"xfs|ext4\", instance=~\"$node_prom\"} - node_filesystem_free_bytes{fstype=\"xfs|ext4\",instance=~\"$node_prom\"}",
           "format": "time_series",
           "hide": false,
           "interval": "",
