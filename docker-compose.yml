@@ -137,4 +137,4 @@ services:
     restart: always
     volumes:
     - ./config/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro
-version: '3.8'
+version: '3.3'
