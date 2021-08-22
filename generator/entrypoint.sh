@@ -8,7 +8,7 @@ fi
 
 endpoint="syslog-ng"
 
-while [ $n -ne $c ]
+while [ "$n" -ne $c ]
 do
 
 arr[0]="loki.grafana.com"
@@ -21,10 +21,10 @@ rand=$[$RANDOM % ${#arr[@]}]
 random_host=${arr[$rand]}
 
 
-   WAIT=$(shuf -i $1-$2 -n 1)
+   WAIT=$(shuf -i "$1"-"$2" -n 1)
    sleep $(echo "scale=4; $WAIT/1000" | bc)
    I=$(shuf -i 1-4 -n 1)
-   D=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+   D=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
    case "$I" in
       "1") echo "$D ${random_host} ERROR An error is usually an exception that has been caught and not handled." | nc -4u -w1 ${endpoint} 514
       ;;
