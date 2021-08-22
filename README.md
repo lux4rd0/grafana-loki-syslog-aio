@@ -1,13 +1,13 @@
 
 ## grafana-loki-syslog-aio
 
-<center><img src="./loki_syslog_aio.png"></center>
+<center><img src="https://github.com/lux4rd0/grafana-loki-syslog-aio/blob/main/loki_syslog_aio.png"></center>
 
 ## About The Project
 
 This Loki Syslog All-In-One example is geared to help you get up and running quickly with a Syslog ingestor and visualization of logs. It uses [Grafana Loki](https://grafana.com/oss/loki/) and Promtail as a receiver for forwarded syslog-ng logs. I wrote an [introductory blog post](https://labs.lux4rd0.com/2021/01/oldskool-syslog-meets-newskool-loki/) about how this AIO project came about as well (pesky intermittent network issues!!) 
 
-<center><img src="./loki_syslog_aio_overview_sized.png"></center>
+<center><img src="https://github.com/lux4rd0/grafana-loki-syslog-aio/blob/main/loki_syslog_aio_overview_sized.png"></center>
 
 *Note that this All In One is geared towards getting network traffic from legacy syslog (RFC3164 UDP port 514) into Loki via [syslog-ng](https://www.syslog-ng.com/) and [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/).*
 
@@ -31,7 +31,7 @@ The stack has been extended to include pre-configured monitoring with:
 - [Node-Exporter](https://github.com/prometheus/node_exporter)
 - [cAdvisor](https://github.com/google/cadvisor)
 
-There is also a simple Syslog generator based on Vicente Zepeda Mas's [random-logger](https://github.com/chentex/random-logger) project.
+A simple Syslog generator is included based on Vicente Zepeda Mas's [random-logger](https://github.com/chentex/random-logger) project.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ There is also a simple Syslog generator based on Vicente Zepeda Mas's [random-lo
 
 ## Using
 
-This was built and tested on Linux CentOS 7. To get started, download the code from this repository and extract it into an empty directory. For example:
+This project is built and tested on Linux CentOS 7. To get started, download the code from this repository and extract it into an empty directory. For example:
 
     wget https://github.com/lux4rd0/grafana-loki-syslog-aio/archive/main.zip
     unzip main.zip
@@ -58,9 +58,9 @@ This will start to download all of the needed application containers and start t
 
 **Grafana Dashboards**
 
-Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Loki Syslog AIO - Overview" dashboard is defaulted without having to login.
+Once all of the docker containers are started up, point your Web browser to the Grafana page, typically http://hostname:3000/ - with hostname being the name of the server you ran the docker-compose up -d command on. The "Loki Syslog AIO - Overview" dashboard is defaulted without having to log in.
 
-*Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:*
+*Note: this docker-compose stack is designed to be as easy as possible to deploy and go. Logins have been disabled, and the default user has an admin role. This can be changed to an Editor or Viewer role by changing the Grafana environmental variable in the docker-compose.yml file to:*
 
     GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
     
@@ -86,17 +86,17 @@ A few other docker-compose files are also available:
 
     docker-compose -f ./docker-compose-without-monitoring.yml up -d
 
-**Example Stack without MinIO, monitoring, or Syslog generator:** Grafana, Loki with filesystem, Promtail, syslog-ng
+**Example Stack without MinIO, monitoring, or Syslog generator:** Grafana, Loki with the filesystem, Promtail, syslog-ng
 
     docker-compose -f ./docker-compose-filesystem.yml up -d
 
-The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator. It'll provide some named hosts and random INFO, WARN, DEBIG, ERROR logs sent over to syslog-ng/Loki.
+The *Syslog Generator* configuration will need access to the Internet to do a local docker build from the configurations location in ./generator. It'll provide some named hosts and random INFO, WARN, DEBUG, ERROR logs sent over to syslog-ng/Loki.
 
-<center><img src="./loki_syslog_aio_overview_generator_sized.png"></center>
+<center><img src="https://github.com/lux4rd0/grafana-loki-syslog-aio/blob/main/loki_syslog_aio_overview_generator_sized.png"></center>
 
 ## Configuration Review:
 
-The default Loki storage configuration docker-compose.yml uses S3 storage with MinIO. If you want to use the filesystem instead, either use the different docker-compose configurations listed above or change the configuration directly. An example would be:
+The default Loki storage configuration docker-compose.yml uses S3 storage with MinIO. If you want to use the filesystem instead, use the different docker-compose configurations listed above or change the configuration directly. An example would be:
 
     volumes:
     - ./config/loki-config-filesystem.ym:/etc/loki/loki-config.yml:ro
@@ -117,7 +117,7 @@ The MinIO configurations default the Access Key and Secret Key at startup. If yo
 
 ## Changed Default Configurations In syslog-ng and Promtail
 
-In order to set this example All In One project up, these configurations were added to the docker-compose.yml. If you already have syslog-ng running on your deployment server - just make similar changes below and comment out the docker container stanza.
+To set this example All In One project up, the following configurations have been added to the docker-compose.yml. If you already have syslog-ng running on your deployment server - make similar changes below and comment out the docker container stanza.
 
 #### SYSLOG-NG CONFIGURATION (docker container listens on port 514)
 
@@ -169,13 +169,9 @@ In order to set this example All In One project up, these configurations were ad
         - source_labels: ['__syslog_message_hostname']
           target_label: 'host'
 
-## Roadmap
-
-See the open issues for a list of proposed features (and known issues).
-
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
+Contributions make the open source community such a fantastic place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 - Fork the Project
 - Create your Feature Branch (git checkout -b feature/AmazingFeature)
