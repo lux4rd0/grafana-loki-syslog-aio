@@ -3,7 +3,7 @@ networks:
 services:
   cadvisor:
     container_name: cadvisor
-    image: gcr.io/google-containers/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest
     networks:
       loki: null
     ports:
@@ -31,7 +31,7 @@ services:
       GF_AUTH_BASIC_ENABLED: "false"
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/no_folder/loki_syslog_aio_overview.json
-    image: grafana/grafana:latest
+    image: grafana/grafana:8.1.2
     networks:
       loki: null
     ports:
@@ -48,7 +48,7 @@ services:
     container_name: loki
     depends_on:
     - minio
-    image: grafana/loki:latest
+    image: grafana/loki:2.3.0
     networks:
       loki: null
     ports:
@@ -85,7 +85,7 @@ services:
   node-exporter:
     command: --path.rootfs=/host
     container_name: node-exporter
-    image: prom/node-exporter
+    image: prom/node-exporter:latest
     networks:
       loki: null
     pid: host
@@ -114,7 +114,7 @@ services:
   promtail:
     command: -config.file=/etc/promtail/promtail-config.yml
     container_name: promtail
-    image: grafana/promtail:latest
+    image: grafana/promtail:2.3.0
     networks:
       loki: null
     ports:
@@ -132,7 +132,7 @@ services:
     container_name: syslog-ng
     depends_on:
     - promtail
-    image: balabit/syslog-ng
+    image: balabit/syslog-ng:latest
     networks:
       loki: null
     ports:
@@ -145,4 +145,4 @@ services:
     restart: always
     volumes:
     - ./config/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro
-version: '3.8'
+version: '3.3'
