@@ -142,7 +142,7 @@ To set this example All In One project up, the following configurations have bee
             destination(d_loki);
     };
 
-Note: the above "`promtail`" configuration in the `destination d_loki` above is the *hostname* where Promtail is running. Is this example, it happens to be the Promtail *docker container* name that I configured in the All-In-One example.
+Note: the above "`promtail`" configuration for `destination d_loki` is the *hostname* where Promtail is running. Is this example, it happens to be the Promtail *docker container* name that I configured for the All-In-One example.
 
 #### PROMTAIL CONFIGURATION (docker container listens on port 1514)
 
