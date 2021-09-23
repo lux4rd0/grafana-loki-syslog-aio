@@ -59,7 +59,7 @@ services:
     volumes:
     - ./config/loki-config-s3.yml:/etc/loki/loki-config.yml:ro
   minio:
-    command: -c 'mkdir -p /data/loki && /usr/bin/minio server /data'
+    command: -c 'mkdir -p /data/loki && /usr/bin/docker-entrypoint.sh minio server /data'
     container_name: minio
     entrypoint: sh
     environment:
